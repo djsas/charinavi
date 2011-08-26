@@ -31,7 +31,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/LC_Page_Ex.php';
  * @author LOCKON CO.,LTD.
  * @version $Id:LC_Page_Entry.php 15532 2007-08-31 14:39:46Z nanasess $
  */
-class LC_Page_Entry2 extends LC_Page_Ex {
+class LC_Page_Entry extends LC_Page_Ex {
 
     // {{{ properties
 
@@ -44,14 +44,16 @@ class LC_Page_Entry2 extends LC_Page_Ex {
      */
     function init() {
         parent::init();
-        $this->tpl_title = "ボランティア団体新規登録";
-        $this->tpl_mainpage = 'entry2/index.tpl';
-        $this->tpl_page_category = 'entry2';
+        $masterData         = new SC_DB_MasterData_Ex();
+        $this->arrPref      = $masterData->getMasterData('mtb_pref');
+        $this->arrJob       = $masterData->getMasterData("mtb_job");
+        $this->arrReminder  = $masterData->getMasterData("mtb_reminder");
 
-
-        // マスタ-データから権限配列を取得
-        $masterData = new SC_DB_MasterData_Ex();
-        $this->arrAUTHORITY = $masterData->getMasterData('mtb_authority');
+        // 生年月日選択肢の取得
+        $objDate            = new SC_Date_Ex(BIRTH_YEAR, date('Y',strtotime('now')));
+        $this->arrYear      = $objDate->getYear('', START_BIRTH_YEAR, '');
+        $this->arrMonth     = $objDate->getMonth(true);
+        $this->arrDay       = $objDate->getDay(true);
 
         $this->httpCacheControl('nocache');
     }
@@ -73,7 +75,7 @@ class LC_Page_Entry2 extends LC_Page_Ex {
     function action() {
         $objFormParam = new SC_FormParam_Ex();
 
-        SC_Helper_Volunteer_Ex::sfCustomerEntryParam($objFormParam);
+        SC_Helper_Customer_Ex::sfCustomerEntryParam($objFormParam);
         $objFormParam->setParam($_POST);
         $this->arrForm  = $objFormParam->getHashArray();
 
@@ -96,7 +98,7 @@ class LC_Page_Entry2 extends LC_Page_Ex {
                 //パスワード表示
                 $this->passlen      = SC_Utils_Ex::sfPassLen(strlen($this->arrForm['password']));
 
-                $this->tpl_mainpage = 'entry2/confirm.tpl';
+                $this->tpl_mainpage = 'entry/confirm.tpl';
                 $this->tpl_title    = '会員登録(確認ページ)';
             }
             break;
@@ -107,7 +109,7 @@ class LC_Page_Entry2 extends LC_Page_Ex {
 
                 $uniqid             = $this->lfRegistCustomerData($this->lfMakeSqlVal($objFormParam));
 
-                $this->tpl_mainpage = 'entry2/complete.tpl';
+                $this->tpl_mainpage = 'entry/complete.tpl';
                 $this->tpl_title    = '会員登録(完了ページ)';
                 $this->lfSendMail($uniqid, $this->arrForm);
 
@@ -258,5 +260,3 @@ class LC_Page_Entry2 extends LC_Page_Ex {
         return true;
     }
 }
-
-// D.S.G.
