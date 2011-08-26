@@ -307,8 +307,8 @@ class SC_Helper_Volunteer {
      * @access public
      * @return void
      */
-    function sfCustomerEntryParam (&$objFormParam, $isAdmin = false) {
-        SC_Helper_Customer_Ex::sfCustomerCommonParam($objFormParam);
+    function sfVolunteerEntryParam (&$objFormParam, $isAdmin = false) {
+        SC_Helper_Volunteer_Ex::sfVolunteerCommonParam($objFormParam);
         SC_Helper_Customer_Ex::sfCustomerRegisterParam($objFormParam, $isAdmin);
         if($isAdmin) {
             $objFormParam->addParam("顧客ID", "customer_id", INT_LEN, 'n', array("NUM_CHECK"));
@@ -363,10 +363,10 @@ class SC_Helper_Volunteer {
      * @access public
      * @return void
      */
-    function sfCustomerCommonParam (&$objFormParam) {
-        $objFormParam->addParam("お名前(姓)", 'name01', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK"));
-        $objFormParam->addParam("お名前(名)", 'name02', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" , "MAX_LENGTH_CHECK"));
-        $objFormParam->addParam("お名前(フリガナ・姓)", 'kana01', STEXT_LEN, 'CKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK", "KANA_CHECK"));
+    function sfVolunteerCommonParam (&$objFormParam) {
+        $objFormParam->addParam("名前", 'name', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("所属", 'organization', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" , "MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("ログインID", 'kana01', STEXT_LEN, 'CKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK", "KANA_CHECK"));
         $objFormParam->addParam("お名前(フリガナ・名)", 'kana02', STEXT_LEN, 'CKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK", "KANA_CHECK"));
         $objFormParam->addParam("郵便番号1", "zip01", ZIP01_LEN, 'n', array("EXIST_CHECK", "SPTAB_CHECK" ,"NUM_CHECK", "NUM_COUNT_CHECK"));
         $objFormParam->addParam("郵便番号2", "zip02", ZIP02_LEN, 'n', array("EXIST_CHECK", "SPTAB_CHECK" ,"NUM_CHECK", "NUM_COUNT_CHECK"));
