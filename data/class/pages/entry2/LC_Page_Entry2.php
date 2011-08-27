@@ -73,9 +73,10 @@ class LC_Page_Entry2 extends LC_Page_Ex {
     function action() {
         $objFormParam = new SC_FormParam_Ex();
 
-        SC_Helper_Volunteer_Ex::sfCustomerEntryParam($objFormParam);
+        SC_Helper_Volunteer_Ex::sfVolunteerEntryParam($objFormParam);
         $objFormParam->setParam($_POST);
         $this->arrForm  = $objFormParam->getHashArray();
+        //var_dump($this->arrForm);
 
         // PC時は規約ページからの遷移でなければエラー画面へ遷移する
         if ($this->lfCheckReferer($this->arrForm, $_SERVER['HTTP_REFERER']) === false) {
@@ -86,11 +87,11 @@ class LC_Page_Entry2 extends LC_Page_Ex {
         if (!empty($this->arrForm['return'])) {
             $_POST['mode'] = 'return';
         }
-
+        
         switch ($this->getMode()) {
         case 'confirm':
             //-- 確認
-            $this->arrErr = SC_Helper_Customer_Ex::sfCustomerEntryErrorCheck($objFormParam);
+            $this->arrErr = SC_Helper_Volunteer_Ex::sfVolunteerEntryErrorCheck($objFormParam);
             // 入力エラーなし
             if(empty($this->arrErr)) {
                 //パスワード表示

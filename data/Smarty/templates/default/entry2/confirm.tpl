@@ -38,7 +38,7 @@
             <tr>
                 <th>お名前<span class="attention">※</span></th>
                 <td>
-                    <!--{$arrForm.`$prefix`name|h}-->
+                    <!--{$arrForm.name|h}-->
                 </td>
             </tr>
             <tr>
@@ -50,20 +50,13 @@
             <tr>
                 <th>ログインID<span class="attention">※</span></th>
                 <td>
-                    〒<!--{$arrForm.id|h}-->
+                    <!--{$arrForm.login_id|h}-->
                 </td>
             </tr>
             <tr>
                 <th>希望するパスワード<span class="attention">※</span><br />
                 </th>
                 <td><!--{$passlen}--></td>
-            </tr>
-            <tr>
-                <th>パスワードを忘れた時のヒント<span class="attention">※</span></th>
-                <td>
-                    質問：<!--{$arrReminder[$arrForm.reminder]|h}--><br />
-                    答え：<!--{$arrForm.reminder_answer|h}-->
-                </td>
             </tr>
         </table>
 

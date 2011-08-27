@@ -45,7 +45,7 @@
 <tr>
     <th>ログインID<span class="attention">※</span></th>
     <td>
-        <!--{assign var=key1 value="`$prefix`id"}-->
+        <!--{assign var=key1 value="`$prefix`login_id"}-->
         <!--{if $arrErr[$key1]}-->
             <div class="attention"><!--{$arrErr[$key1]}--></div>
         <!--{/if}-->
@@ -63,21 +63,6 @@
                 <p><span class="attention mini">半角英数字<!--{$smarty.const.PASSWORD_MIN_LEN}-->～<!--{$smarty.const.PASSWORD_MAX_LEN}-->文字でお願いします。（記号不可）</span></p>
                 <input type="password" name="password02" value="<!--{$arrForm.password02|h}-->" maxlength="<!--{$smarty.const.PASSWORD_MAX_LEN}-->" style="<!--{$arrErr.password|cat:$arrErr.password02|sfGetErrorColor}-->" class="box120" />
                 <p><span class="attention mini">確認のために2度入力してください。</span></p>
-            </td>
-        </tr>
-        <tr>
-            <th>パスワードを忘れた時のヒント<span class="attention">※</span></th>
-            <td>
-                <!--{if $arrErr.reminder || $arrErr.reminder_answer}-->
-                    <div class="attention"><!--{$arrErr.reminder}--><!--{$arrErr.reminder_answer}--></div>
-                <!--{/if}-->
-                質問：
-                <select name="reminder" style="<!--{$arrErr.reminder|sfGetErrorColor}-->">
-                    <option value="" selected="selected">選択してください</option>
-                    <!--{html_options options=$arrReminder selected=$arrForm.reminder}-->
-                </select>
-                <br />
-                答え：<input type="text" name="reminder_answer" value="<!--{$arrForm.reminder_answer|h}-->" style="<!--{$arrErr.reminder_answer|sfGetErrorColor}-->; ime-mode: active;" class="box260" />
             </td>
         </tr>
     <!--{/if}-->
