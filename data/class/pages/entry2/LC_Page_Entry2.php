@@ -51,8 +51,8 @@ class LC_Page_Entry2 extends LC_Page_Ex {
 
         // マスタ-データから権限配列を取得
         $masterData = new SC_DB_MasterData_Ex();
-        $this->arrAUTHORITY = $masterData->getMasterData('mtb_authority');
-
+        $this->arrPref = $masterData->getMasterData("mtb_pref");
+        
         $this->httpCacheControl('nocache');
     }
 

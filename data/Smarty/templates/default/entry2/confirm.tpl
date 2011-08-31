@@ -36,15 +36,55 @@
             <colgroup width="30%"></colgroup>
             <colgroup width="70%"></colgroup>
             <tr>
-                <th>お名前<span class="attention">※</span></th>
+                <th>ボランティア団体名<span class="attention">※</span></th>
                 <td>
                     <!--{$arrForm.name|h}-->
                 </td>
             </tr>
             <tr>
-                <th>所属<span class="attention">※</span></th>
+                <th>ボランティア団体名(フリガナ)<span class="attention">※</span></th>
                 <td>
-                    <!--{$arrForm.organization|h}-->
+                    <!--{$arrForm.kana|h}-->
+                </td>
+            </tr>
+            <tr>
+                <th>郵便番号<span class="attention">※</span></th>
+                <td>
+                    〒<!--{$arrForm.zip01|h}--> - <!--{$arrForm.zip02|h}-->
+                </td>
+            </tr>
+            <tr>
+                <th>住所<span class="attention">※</span></th>
+                <td>
+                    <!--{$arrPref[$arrForm.pref]|h}--><!--{$arrForm.addr01|h}--><!--{$arrForm.addr02|h}-->
+                </td>
+            </tr>
+            <tr>
+                <th>電話番号<span class="attention">※</span></th>
+                <td>
+                    <!--{$arrForm.tel01|h}--> - <!--{$arrForm.tel02|h}--> - <!--{$arrForm.tel03|h}-->
+                </td>
+            </tr>
+            <tr>
+                <th>FAX</th>
+                <td>
+                    <!--{if strlen($arrForm.fax01) > 0 && strlen($arrForm.fax02) > 0 && strlen($arrForm.fax03) > 0}-->
+                        <!--{$arrForm.fax01|h}--> - <!--{$arrForm.fax02|h}--> - <!--{$arrForm.fax03|h}-->
+                    <!--{else}-->
+                        未登録
+                    <!--{/if}-->
+                </td>
+            </tr>
+            <tr>
+                <th>メールアドレス<span class="attention">※</span></th>
+                <td>
+                    <a href="mailto:<!--{$arrForm.email|escape:'hex'}-->"><!--{$arrForm.email|escape:'hexentity'}--></a>
+                </td>
+            </tr>
+            <tr>
+                <th>活動内容<span class="attention">※</span></th>
+                <td>
+                    <!--{$arrForm.description|h}-->
                 </td>
             </tr>
             <tr>

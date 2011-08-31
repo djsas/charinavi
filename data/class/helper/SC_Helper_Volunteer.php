@@ -365,8 +365,17 @@ class SC_Helper_Volunteer {
      * @return void
      */
     function sfVolunteerCommonParam (&$objFormParam) {
-        $objFormParam->addParam("名前", 'name', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK"));
-        $objFormParam->addParam("所属", 'organization', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" , "MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("ボランティア団体名", 'name', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("ボランティア団体名(フリガナ)", 'kana', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("郵便番号1", "zip01", ZIP01_LEN, 'n', array("EXIST_CHECK", "SPTAB_CHECK" ,"NUM_CHECK", "NUM_COUNT_CHECK"));
+        $objFormParam->addParam("郵便番号2", "zip02", ZIP02_LEN, 'n', array("EXIST_CHECK", "SPTAB_CHECK" ,"NUM_CHECK", "NUM_COUNT_CHECK"));
+        $objFormParam->addParam("都道府県", 'pref', INT_LEN, 'n', array("EXIST_CHECK", "NUM_CHECK"));
+        $objFormParam->addParam("住所1", "addr01", MTEXT_LEN, 'aKV', array("EXIST_CHECK", "SPTAB_CHECK", "MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("住所2", "addr02", MTEXT_LEN, 'aKV', array("EXIST_CHECK", "SPTAB_CHECK", "MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("お電話番号1", 'tel01', TEL_ITEM_LEN, 'n', array("EXIST_CHECK", "SPTAB_CHECK", "NUM_CHECK", "MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("お電話番号2", 'tel02', TEL_ITEM_LEN, 'n', array("EXIST_CHECK", "SPTAB_CHECK", "NUM_CHECK", "MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("お電話番号3", 'tel03', TEL_ITEM_LEN, 'n', array("EXIST_CHECK", "SPTAB_CHECK", "NUM_CHECK", "MAX_LENGTH_CHECK"));
+        $objFormParam->addParam("活動内容", 'description', STEXT_LEN, 'aKV', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK" ,"MAX_LENGTH_CHECK"));
         $objFormParam->addParam("ログインID", 'login_id', STEXT_LEN, 'a', array("EXIST_CHECK", "NO_SPTAB", "SPTAB_CHECK", "MAX_LENGTH_CHECK"));
     }
 
@@ -382,8 +391,17 @@ class SC_Helper_Volunteer {
         $objFormParam->addParam("パスワード", 'password', STEXT_LEN, 'a', array("EXIST_CHECK", "SPTAB_CHECK", "ALNUM_CHECK", "MAX_LENGTH_CHECK"));
 
         if (SC_Display_Ex::detectDevice() !== DEVICE_TYPE_MOBILE){
+            $objFormParam->addParam("FAX番号1", 'fax01', TEL_ITEM_LEN, 'n', array("SPTAB_CHECK"));
+            $objFormParam->addParam("FAX番号2", 'fax02', TEL_ITEM_LEN, 'n', array("SPTAB_CHECK"));
+            $objFormParam->addParam("FAX番号3", 'fax03', TEL_ITEM_LEN, 'n', array("SPTAB_CHECK"));
+            $objFormParam->addParam('メールアドレス', 'email', null, 'a', array("NO_SPTAB", "EXIST_CHECK", "EMAIL_CHECK", "SPTAB_CHECK" ,"EMAIL_CHAR_CHECK"));
             if(!$isAdmin) {
                 $objFormParam->addParam("パスワード(確認)", 'password02', STEXT_LEN, 'a', array("EXIST_CHECK", "SPTAB_CHECK" ,"ALNUM_CHECK"), "", false);
+                $objFormParam->addParam('メールアドレス(確認)', "email02", null, 'a', array("NO_SPTAB", "EXIST_CHECK", "EMAIL_CHECK","SPTAB_CHECK" , "EMAIL_CHAR_CHECK"), "", false);
+            }
+        } else {
+            if (!$is_mypage) {
+                $objFormParam->addParam('メールアドレス', 'email', null, 'a', array("EXIST_CHECK", "EMAIL_CHECK", "NO_SPTAB" ,"EMAIL_CHAR_CHECK", "MOBILE_EMAIL_CHECK"));
             }
         }
     }
