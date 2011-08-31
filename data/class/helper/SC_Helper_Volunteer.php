@@ -425,8 +425,7 @@ class SC_Helper_Volunteer {
          * sfCustomerRegisterErrorCheck() では, ログイン中の場合は重複チェック
          * されないので, 再度チェックを行う
          */
-         /*
-        $objCustomer = new SC_Customer_Ex();
+        $objVolunteer = new SC_Volunteer_Ex();
         if ($objCustomer->isLoginSuccess(true)
             && SC_Helper_Customer_Ex::sfCustomerEmailDuplicationCheck($objCustomer->getValue('customer_id'), $objFormParam->getValue('email'))) {
             $objErr->arrErr['email'] .= "※ すでに会員登録で使用されているメールアドレスです。<br />";
@@ -435,7 +434,6 @@ class SC_Helper_Volunteer {
             && SC_Helper_Customer_Ex::sfCustomerEmailDuplicationCheck($objCustomer->getValue('customer_id'), $objFormParam->getValue('email_mobile'))) {
             $objErr->arrErr['email_mobile'] .= "※ すでに会員登録で使用されているメールアドレスです。<br />";
         }
-        */
 
         return $objErr->arrErr;
     }
@@ -477,16 +475,16 @@ class SC_Helper_Volunteer {
      */
     function sfVolunteerCommonErrorCheck(&$objFormParam) {
         $objFormParam->convParam();
-        //$objFormParam->toLower('email');
-        //$objFormParam->toLower('email02');
+        $objFormParam->toLower('email');
+        $objFormParam->toLower('email02');
         $arrParams = $objFormParam->getHashArray();
 
         // 入力データを渡す。
         $objErr = new SC_CheckError_Ex($arrParams);
         $objErr->arrErr = $objFormParam->checkError();
 
-        //$objErr->doFunc(array("お電話番号", "tel01", "tel02", "tel03"),array("TEL_CHECK"));
-        //$objErr->doFunc(array("郵便番号", "zip01", "zip02"), array("ALL_EXIST_CHECK"));
+        $objErr->doFunc(array("お電話番号", "tel01", "tel02", "tel03"),array("TEL_CHECK"));
+        $objErr->doFunc(array("郵便番号", "zip01", "zip02"), array("ALL_EXIST_CHECK"));
 
         return $objErr;
     }
@@ -506,13 +504,13 @@ class SC_Helper_Volunteer {
                 $objErr->doFunc(array('パスワード', 'パスワード(確認)', 'password', "password02") ,array("EQUAL_CHECK"));
                 $objErr->doFunc(array('メールアドレス', 'メールアドレス(確認)', 'email', "email02") ,array("EQUAL_CHECK"));
             }
-            //$objErr->doFunc(array("FAX番号", "fax01", "fax02", "fax03") ,array("TEL_CHECK"));
+            $objErr->doFunc(array("FAX番号", "fax01", "fax02", "fax03") ,array("TEL_CHECK"));
         }
 
         if(!$isAdmin) {
             // 現会員の判定 → 現会員もしくは仮登録中は、メアド一意が前提になってるので同じメアドで登録不可
-            //$objErr->doFunc(array("メールアドレス", 'email'), array("CHECK_REGIST_CUSTOMER_EMAIL"));
-            //$objErr->doFunc(array("携帯メールアドレス", 'email_mobile'), array("CHECK_REGIST_CUSTOMER_EMAIL", "MOBILE_EMAIL_CHECK"));
+            $objErr->doFunc(array("メールアドレス", 'email'), array("CHECK_REGIST_CUSTOMER_EMAIL"));
+            $objErr->doFunc(array("携帯メールアドレス", 'email_mobile'), array("CHECK_REGIST_CUSTOMER_EMAIL", "MOBILE_EMAIL_CHECK"));
 
         }
         return $objErr;
