@@ -103,7 +103,7 @@ class LC_Page_Entry2 extends LC_Page_Ex {
             break;
         case 'complete':
             //-- 会員登録と完了画面
-            $this->arrErr = SC_Helper_Customer_Ex::sfCustomerEntryErrorCheck($objFormParam);
+            $this->arrErr = SC_Helper_Volunteer_Ex::sfVolunteerEntryErrorCheck($objFormParam);
             if(empty($this->arrErr)) {
 
                 $uniqid             = $this->lfRegistCustomerData($this->lfMakeSqlVal($objFormParam));
