@@ -193,11 +193,11 @@ class SC_Helper_Volunteer {
      * @param string $email チェック対象のメールアドレス
      * @return boolean メールアドレスが重複する場合 true
      */
-    function sfCustomerEmailDuplicationCheck($customer_id, $email) {
+    function sfVolunteerEmailDuplicationCheck($volunteer_id, $email) {
         $objQuery   =& SC_Query_Ex::getSingletonInstance();
         $arrResults = $objQuery->getRow("email, email_mobile",
-                                        "dtb_customer", "customer_id = ?",
-                                        array($customer_id));
+                                        "dtb_volunteer", "volunteer_id = ?",
+                                        array($volunteer_id));
         if ($email == $arrResults['email']
             || $email == $arrResults["email_mobile"]) {
             return true;
@@ -426,12 +426,14 @@ class SC_Helper_Volunteer {
          * されないので, 再度チェックを行う
          */
         $objVolunteer = new SC_Volunteer_Ex();
-        if ($objCustomer->isLoginSuccess(true)
-            && SC_Helper_Customer_Ex::sfCustomerEmailDuplicationCheck($objCustomer->getValue('customer_id'), $objFormParam->getValue('email'))) {
-            $objErr->arrErr['email'] .= "※ すでに会員登録で使用されているメールアドレスです。<br />";
+        //if ($objVolunteer->isLoginSuccess(true)
+        //    && SC_Helper_Customer_Ex::sfCustomerEmailDuplicationCheck($objCustomer->getValue('customer_id'), $objFormParam->getValue('email'))) {
+        if(SC_Helper_Volunteer_Ex::sfVolunteerEmailDuplicationCheck($objVolunteer->getValue("volunteer_id"), $objFormParam->getValue("email"))) {
+            $objErr->arrErr['email'] .= "※ すでにボランティア団体登録で使用されているメールアドレスです。<br />";
         }
-        if ($objCustomer->isLoginSuccess(true)
-            && SC_Helper_Customer_Ex::sfCustomerEmailDuplicationCheck($objCustomer->getValue('customer_id'), $objFormParam->getValue('email_mobile'))) {
+        //if ($objCustomer->isLoginSuccess(true)
+        //    && SC_Helper_Customer_Ex::sfCustomerEmailDuplicationCheck($objCustomer->getValue('customer_id'), $objFormParam->getValue('email_mobile'))) {
+        if (SC_Helper_Volunteer_Ex::sfVolunteerEmailDuplicationCheck($objVolunteer->getValue('volunteer_id'), $objFormParam->getValue('email_mobile'))) {
             $objErr->arrErr['email_mobile'] .= "※ すでに会員登録で使用されているメールアドレスです。<br />";
         }
 

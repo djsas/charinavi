@@ -24,12 +24,12 @@
 /*  [名称] SC_Customer
  *  [概要] 会員管理クラス
  */
-class SC_Customer {
+class SC_Volunteer {
 
     /** 会員情報 */
-    var $customer_data;
+    var $volunteer_data;
 
-    function SC_Customer() {
+    function SC_Volunteer() {
     }
 
     function getCustomerDataFromEmailPass( $pass, $email, $mobile = false ) {
@@ -246,11 +246,11 @@ __EOS__;
         // ポイントはリアルタイム表示
         if ($keyname == 'point') {
             $objQuery =& SC_Query_Ex::getSingletonInstance();
-            $point = $objQuery->get('point', 'dtb_customer', 'customer_id = ?', array($_SESSION['customer']['customer_id']));
-            $_SESSION['customer']['point'] = $point;
+            $point = $objQuery->get('point', 'dtb_volunteer', 'member_id = ?', array($_SESSION['member']['member_id']));
+            $_SESSION['member']['point'] = $point;
             return $point;
         } else {
-            return isset($_SESSION['customer'][$keyname]) ? $_SESSION['customer'][$keyname] : "";
+            return isset($_SESSION['member'][$keyname]) ? $_SESSION['member'][$keyname] : "";
         }
     }
 
