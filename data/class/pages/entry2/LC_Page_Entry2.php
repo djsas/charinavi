@@ -45,9 +45,15 @@ class LC_Page_Entry2 extends LC_Page_Ex {
     function init() {
         parent::init();
         $this->tpl_title = "ボランティア団体新規登録";
-        //$this->tpl_mainpage = 'entry2/index.tpl';
         $this->tpl_page_category = 'entry2';
-
+        switch ($this->getMode()) {
+        case 'confirm':
+	        $this->tpl_mainpage = 'entry2/confirm.tpl';
+	        break;
+	    default:
+	    	$this->tpl_mainpage = 'entry2/index.tpl';
+	    }
+        
 
         // マスタ-データから権限配列を取得
         $masterData = new SC_DB_MasterData_Ex();
