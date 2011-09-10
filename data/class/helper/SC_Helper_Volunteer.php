@@ -434,7 +434,7 @@ class SC_Helper_Volunteer {
         //if ($objCustomer->isLoginSuccess(true)
         //    && SC_Helper_Customer_Ex::sfCustomerEmailDuplicationCheck($objCustomer->getValue('customer_id'), $objFormParam->getValue('email_mobile'))) {
         if (SC_Helper_Volunteer_Ex::sfVolunteerEmailDuplicationCheck($objVolunteer->getValue('volunteer_id'), $objFormParam->getValue('email_mobile'))) {
-            $objErr->arrErr['email_mobile'] .= "※ すでに会員登録で使用されているメールアドレスです。<br />";
+            $objErr->arrErr['email_mobile'] .= "※ すでにボランティア団体登録で使用されているメールアドレスです。<br />";
         }
 
         return $objErr->arrErr;
