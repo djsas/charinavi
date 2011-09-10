@@ -45,7 +45,7 @@ class LC_Page_Entry2 extends LC_Page_Ex {
     function init() {
         parent::init();
         $this->tpl_title = "ボランティア団体新規登録";
-        $this->tpl_mainpage = 'entry2/index.tpl';
+        //$this->tpl_mainpage = 'entry2/index.tpl';
         $this->tpl_page_category = 'entry2';
 
 
